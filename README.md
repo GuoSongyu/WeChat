@@ -16,4 +16,4 @@
 
 
 
-微信appid和appsecret等储存在conf文件中，获取到的access_token和jsspi_ticket也写在文件中，过期之后会重新并重新写入文件中
+微信appid和appsecret请自行填写在conf文件中，获取到的access_token和jsspi_ticket也写在文件中，过期之后会重新并重新写入文件中

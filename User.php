@@ -51,6 +51,18 @@ class User extends Base{
 	}
 
 
+	/**
+	* 获取微信下用户列表
+	* @param string $nextOpenid 
+	* return json
+	*/
+	public function getAll($nextOpenid = ""){
+		$url = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=".$this->getToken();
+		$finalUrl = $nextOpenid?$url."&next_openid=".$nextOpenid:$url;
+		$res = Until::httpGet($finalUrl);
+
+		return $res;
+	}	
 
 
 }

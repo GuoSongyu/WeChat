@@ -45,6 +45,38 @@ class Material extends Base{
 
 
 	/**
+	* 修改图文素材
+	* @param string $media_id 要修改图文素材的media_id
+	* @param array $newsData 更新的图文内容
+	* @param int $index 要进行修改的文章（从0开始，多图文时此字段才有意义）
+	*
+	*/
+	public function update($media_id,$newsData,$index = 0){
+		$data['media_id'] = $media_id;
+		$data['index'] = $index;
+		$data['articles'] = $newsData;
+		$url = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token=".$this->getToken();
+
+		$res = Until::httpPost($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+		return $res;
+	}
+
+
+	/**
+	* 删除永素材
+	* @param string $media_id
+	* return json
+	*/
+	public function del($media_id){
+		$url = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=".$this->getToken();
+		$data['media_id'] = $media_id;
+
+		$res = Until::httoPost($url,$data);
+		return $res;
+	}
+
+
+	/**
 	* 新增素材
 	* @param string $type 新增素材类型（临时、永久；临时只存在3天、永久图文消息素材、图片素材上限为5000，其他类型为1000。）
 	* @param string $materialType 素材类型

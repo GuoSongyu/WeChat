@@ -6,11 +6,11 @@
 	修改之后会导致配置文件格式错误，无法读取
 */
 return array(
-'appid' => 'wx8dfab97a1e159a36',
-'appsecret' => 'd4624c36b6795d1d99dcf0547af5443d',
-'jsapi_expire_time' => 1505902240,
+'appid' => '',
+'appsecret' => '',
+'jsapi_expire_time' => 0000000000,
 'jsapi_ticket' => 'sM4AOVdWfPE4DxkXGEs8VN3v-siWTr76EutB2E3naYsxhxSIWEyAcxGChEqwpdDsggQNOLSYcLuOBom-h_1dOA',
-'expire_time' => 1506049196,
-'access_token' => 'uyNu4z-VAI8lgmpG-jPexxofOP9WMJZPGDSDedBAkGBLM8hq8lvv1JbZdaeUaynBaw7zHLE1hfE7iUI_Pgamp0qQ-9EHoquj4kKLQsgHd4ah2hDJVPUS_Hgoq9052KhBYNYcAAAHWH'
+'expire_time' => 0000000000,
+'access_token' => 'EsdA8Uqrd_PZLZp7mrhcrnPnLs2zzbLissbpnBPtKl7y5AxXooLHJ6mW1x78-LDHIpG9CGuKJ1TXPUvj3v4WjTu6D4ynYXNCcm7Zjpsa6H5_TlUyCzbGyJeVe5-9unstCNGgAEAUFY'
 );
 ?>
