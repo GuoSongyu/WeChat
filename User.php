@@ -65,5 +65,112 @@ class User extends Base{
 	}	
 
 
+	/************************ 标签操作 *****************************/
+
+	/**
+	* 创建用户标签
+	* @param string $name 标签名称
+	* return json
+	*/
+	public function createTag($name){
+		$data['tag'] = array('name'=>$name);
+		$url = "https://api.weixin.qq.com/cgi-bin/tags/create?access_token=".$this->getToken();
+
+		$res = Until::httpPost($url,json_encode($data));
+		return $res;
+	}
+
+	/**
+	* 获取公众号下已经创建的标签
+	* return json
+	*/
+	public function getAllTag(){
+		$url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=".$this->getToken();
+		$res = Until::httpGet($url);
+		return $res;
+	}
+
+
+	/**
+	* 编辑标签
+	* @param array $tag 要修改的标签内容（id、name）
+	* return json
+	*/
+	public function editTag($tag){
+		$data['tag'] = $tag;
+		$url = "https://api.weixin.qq.com/cgi-bin/tags/update?access_token=".$this->getToken();
+		$res = Until::httpPost($url,json_encode($data));
+		return $res;
+	}
+
+
+	/**
+	* 删除标签（标签下粉丝超过10W时不可删除，要手动取消该标签粉丝到10W以下才可以删除）
+	* @param int $tagId 标签id
+	* return json
+	*/
+	public function delTag($tagId){
+		$data['tag'] = array('id'=>$tagId);
+		$url = "https://api.weixin.qq.com/cgi-bin/tags/delete?access_token=".$this->getToken();
+		$res = Until::httpPost($url,json_encode($data));
+		return $res;
+	}
+
+	/**
+	* 查询标签下的用户列表
+	* @param int $tagId 标签id
+	* @param stirng $nextOpenid 第一个拉取的openid，不写的话默认从头拉取
+	* return json
+	*/
+	public function belongTag($tagId,$nextOpenid = ""){
+		$data['tagid'] = $tagId;
+		$data['next_openid'] = $nextOpenid;
+		$url = "https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token=".$this->getToken();
+		$res = Until::httpPost($url,$data);
+		return $res;
+	}
+
+
+	/**
+	* 批量操作用户标签
+	* @param string $type 操作类型（tag打标签、untag取消标签）
+	* @param array $openidList openid列表
+	* @param int $tagId 标签id
+	* return json
+	*/
+	public function batchMakeTag($type,$openidList,$tagId){
+		switch ($type) {
+			case 'tag':
+				$url = "https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=".$this->getToken();
+				break;
+			case 'untag':
+				$url = "https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token=".$this->getToken();
+				break;
+			default:
+				return $this->setMessage(1,"标签操作类型错误，请选择tag(打标签)或untag(取消标签)");
+				break;
+		}
+		
+		$data['openid_list'] = $openidList;
+		$data['tagid'] = $tagId;
+
+		$res = Until::httpPost($url,json_encode($data));
+		return $res;
+	}
+
+
+	/**
+	* 获取用户身上的标签列表
+	* @param string $openid 用户openid
+	* return json
+	*/
+	public function getTag($openid){
+		$data['openid'] = $openid;
+		$url = "https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token=".$this->getToken();
+
+		$res = Until::httpPost($url,json_encode($data));
+		return $res;
+	}
+
 }
 ?>
