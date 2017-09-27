@@ -13,7 +13,13 @@ class Menu extends Base{
 	private $buttonData;
 
 
-	//构建菜单数组
+	/**
+	* 构建菜单数组
+	* @param array $menuArr 生成的菜单信息
+	* @param string $pk 菜单数组中的主键名称
+	* @param string $pid 子菜单中的父id名称
+	* @param string $child 子集名称
+	*/
 	public function build($menuArr,$pk = 'id', $pid = 'pid', $child = 'sub_button'){
 		$this->buttonData = Until::list_to_tree($menuArr,$pk, $pid, $child);
 		return $this->buttonData;
@@ -21,13 +27,8 @@ class Menu extends Base{
 
 	/**
 	* 创建自定义菜单
-	* @param array $menuArr 生成的菜单信息
-	* @param string $pk 菜单数组中的主键名称
-	* @param string $pid 子菜单中的父id名称
-	* @param string $child 子集名称
 	* return json
 	*/
-	// public function create($menuArr,$pk = 'id', $pid = 'pid', $child = 'sub_button'){
 	public function create(){
 		if(!$this->buttonData){
 			$msg = "菜单信息为空，请先指定build方法构建菜单";
@@ -109,7 +110,7 @@ class Menu extends Base{
 
 
 	/**
-	* 检测条件信息是否正确，并是否空值
+	* 检测条件信息是否正确，并是否空值,并对省市区进行排序
 	* @param array $con 菜单条件二维数组
 	* @param boolean 
 	* return array|json

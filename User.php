@@ -45,6 +45,10 @@ class User extends Base{
 		if(isset($codeRes['errcode'])){
 			return json_encode($codeRes);
 		}
+		if($codeRes == false){
+			$msg = "未获取到code值";
+			return $this->setMessage(1,$msg);
+		}
 		$url = "https://api.weixin.qq.com/sns/userinfo?access_token=".$codeRes['access_token']."&openid=".$codeRes['openid']."&lang=zh_CN";
 		$res = Until::httpGet($url);
 		return $res;
